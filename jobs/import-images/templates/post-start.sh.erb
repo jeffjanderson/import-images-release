@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -ex
+
+<% p('images').each do | image_hash | %>
+  <%  image_name = image_hash['name']
+      image_auth = image_hash['auth']
+      image_retagAs = image_hash['retagAs']
+
+      if image_name.nil? || image_name.empty?
+        raise "Image must be configured with a 'name' attribute. '#{image_hash}'"
+      end
+      %>
+
+  # pull the image, using auth/credentials if supplied
+  <% if image_auth.nil? || image_auth.empty? %>
+      echo "Pulling <%=image_name%>"
+      sudo /var/vcap/packages/containerd/bin/crictl --runtime-endpoint unix:///var/vcap/sys/run/containerd/containerd.sock pull <%= image_name %>
+  <% else %>
+      echo "Pulling <%=image_name%> using credentials" 
+      sudo /var/vcap/packages/containerd/bin/crictl --runtime-endpoint unix:///var/vcap/sys/run/containerd/containerd.sock pull --auth <%=image_auth%> <%=image_name%>
+  <% end %>
+
+  # retag the image after it has been pulled from registry
+  <% if image_retagAs.nil? || image_retagAs.empty? %>
+      echo "No retagAs specified for <%= image_name %>, not retagging..."
+  <% else %>
+      echo "Retagging <%= image_name %> to <%= image_retagAs %>"
+      sudo /var/vcap/packages/containerd/bin/ctr --namespace=k8s.io image tag <%= image_name %> <%= image_retagAs %>
+  <% end %>
+
+<% end %>

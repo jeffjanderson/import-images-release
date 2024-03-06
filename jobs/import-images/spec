@@ -1,0 +1,21 @@
+---
+name: import-images
+
+templates:
+  post-start.sh.erb: bin/post-start
+
+properties:
+  images:
+    description: |
+      Define images to be pulled from registry. Each image should specify a `name`
+      attribute.  Images can optionally provide `auth` if using a private registry.
+      The value of `auth` must be base64 encoded user:password to the private 
+      registry for that image.  Images can optionally also provide `retagAs` if
+      it is desired to change an image's tag after pulling.
+    example:
+      images:
+      - name: harbor.mydomain.com/debian-base:v2.0.0
+        auth: dXNlcm5hbWU6cGFzc3dvcmQ=
+        retagAs: registry.k8s.io/debian-base:v2.0.0
+      - name: harbor.mydomain.com/nginx
+        auth: dXNlcm5hbWU6cGFzc3dvcmQ=

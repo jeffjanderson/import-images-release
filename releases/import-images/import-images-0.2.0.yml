@@ -1,0 +1,10 @@
+name: import-images
+version: 0.2.0
+commit_hash: "6826586"
+uncommitted_changes: false
+jobs:
+- name: import-images
+  version: f670783110e61037ade042e57eb3af8d0c1b0dbced5e58f08a001efad7c64efd
+  fingerprint: f670783110e61037ade042e57eb3af8d0c1b0dbced5e58f08a001efad7c64efd
+  sha1: sha256:70be860ddfcd58f55169fb1324a849d5433af2a93a89685aa5331165afa7a18d
+  packages: []

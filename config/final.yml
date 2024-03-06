@@ -1,0 +1,6 @@
+---
+final_name: import-images
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/import-images
