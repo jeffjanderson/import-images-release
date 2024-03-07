@@ -261,4 +261,4 @@ harbor.mydomain.com/debian-base                                              v2.
 registry.k8s.io/debian-base                                                  v2.0.0                                     9bd6154724425       21.1MB
 ```
 
-9. finally, create a new test cluster and verify the import-images job has been applied by also validating the logs and crictl images on a worker node
+14. Finally, create a new test cluster and verify the import-images job has been applied by again validating the logs and crictl images on a worker node
