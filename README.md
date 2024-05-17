@@ -207,7 +207,7 @@ Succeeded
 ```sh
 releases:
 - name: import-images
-  version: 0.1.0
+  version: 0.2.0
 addons:
   - name: import-images
     include: 
