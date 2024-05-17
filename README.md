@@ -202,7 +202,28 @@ windows-utilities       0.11.0*                  6466a01
 Succeeded
 ```
 
-7. Create a import-images-runtime.yaml file that includes the data required by the [spec](jobs/import-images/spec).  Include full image paths.  Include a base64 encoded user:pwd string as auth, if required.  If an image must be retagged after pulling onto instances after deployment, put the new tag in retagAs.
+7. Create a import-images-runtime.yaml file that includes the data required by the [spec](jobs/import-images/spec).  Include full image paths.  Include a base64 encoded user:pwd string as auth, if required.  If an image must be retagged after pulling onto instances after deployment, put the new tag in retagAs.  Here's an example:
+
+```sh
+releases:
+- name: import-images
+  version: 0.1.0
+addons:
+  - name: import-images
+    include: 
+      instance_groups:
+      - worker
+    jobs:
+    - name: import-images
+      release: import-images
+      properties:
+        images:
+        - name: harbor.mydomain.com/debian-base:v2.0.0
+          auth: dXNlcm5hbWU6cGFzc3dvcmQ=
+          retagAs: registry.k8s.io/debian-base:v2.0.0
+        - name: harbor.mydomain.com/nginx
+          auth: dXNlcm5hbWU6cGFzc3dvcmQ=
+``` 
 
 
 8. Then, update our bosh config to include the import-images job and property configuration:
